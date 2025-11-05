@@ -1,7 +1,7 @@
 # Low Level Design (LLD) Interview Practice - Complete Guide
 
 ## 📚 Overview
-This repository contains **8 production-ready implementations** of common Low Level Design interview problems, complete with comprehensive interview guides and best practices. Each system demonstrates core OOP principles, design patterns, and real-world considerations.
+This repository contains **9 production-ready implementations** of common Low Level Design interview problems, complete with comprehensive interview guides and best practices. Each system demonstrates core OOP principles, design patterns, and real-world considerations.
 
 ## 🎯 Systems Included
 
@@ -182,6 +182,28 @@ This repository contains **8 production-ready implementations** of common Low Le
 - Hash collisions: Linear probing or chaining
 - Analytics: Time-series data storage
 
+---
+
+### 9. [Chess Game](./09_chess_game_readme.md) ♟️
+**File**: `09_chess_game.py`
+
+**What it covers:**
+- **Board representation**: 8x8 grid with position tracking
+- **Piece movement**: All 6 piece types with validation
+- **Special moves**: Castling, En Passant, Pawn Promotion
+- **Game state detection**: Check, Checkmate, Stalemate
+
+**Interview focus:**
+- Object-oriented design with inheritance
+- Strategy pattern for piece-specific logic
+- Move validation and simulation
+- Complex rule enforcement
+
+**Key algorithms:**
+- Move validation: O(n²) for check detection
+- Piece movement: O(1) to O(n) depending on piece type
+- Game state detection: O(n³) for legal move enumeration
+
 ## 🎯 Interview Preparation Strategy
 
 ### Phase 1: Study Individual Systems (Week 1-2)
@@ -196,10 +218,11 @@ This repository contains **8 production-ready implementations** of common Low Le
 4. **Elevator System** - SCAN algorithm, state machines
 5. **Vending Machine** - State pattern, payment processing
 6. **URL Shortener** - Encoding, hashing, scalability
+7. **Chess Game** - OOP design, move validation, complex rules
 
 **Advanced Systems** (distributed concepts):
-7. **Rate Limiter** - Distributed coordination, algorithms
-8. **Job Processor** - Concurrency, reliability patterns
+8. **Rate Limiter** - Distributed coordination, algorithms
+9. **Job Processor** - Concurrency, reliability patterns
 
 **Study approach for each**:
 1. Read the detailed README thoroughly
@@ -302,6 +325,9 @@ This repository contains **8 production-ready implementations** of common Low Le
 | **URL Shortener** | Shorten URL | O(1) avg | O(urls) | HashMap for URL→code |
 | | Resolve URL | O(1) | O(urls) | HashMap for code→URL |
 | | Base62 encode | O(log n) | O(1) | Convert number to base62 |
+| **Chess Game** | Move validation | O(n²) | O(1) | Check detection scan |
+| | Get legal moves | O(n³) | O(n²) | Iterate pieces × moves × validate |
+| | Make move | O(n²) | O(n) | Validate + update board |
 
 ## 🎤 Common Interview Questions Across All Systems
 
@@ -374,6 +400,7 @@ python 05_vending_machine.py
 python 06_library_management.py
 python 07_parking_lot.py
 python 08_url_shortener.py
+python 09_chess_game.py
 
 # Each will run comprehensive demos showing all features
 ```
@@ -484,6 +511,24 @@ short_url = shortener.shorten("https://example.com/very/long/url")
 original_url = shortener.resolve(short_url)
 ```
 
+**Chess Game**:
+```python
+from chess_game import ChessGame
+
+game = ChessGame("game_001")
+# Make moves using algebraic notation
+success, message = game.make_move("e2", "e4")
+print(message)  # "Move: e4"
+
+# Get valid moves for a piece
+valid_moves = game.get_valid_moves("e2")
+print(valid_moves)  # ['e3', 'e4']
+
+# Check game status
+status = game.get_game_status()
+print(status)  # {'game_state': 'active', 'current_turn': 'white', ...}
+```
+
 ## 📈 Interview Performance Tips
 
 ### Coding Best Practices
@@ -538,8 +583,8 @@ original_url = shortener.resolve(short_url)
 **Intermediate Level**:
 5. **Online Shopping Cart** - Inventory, checkout, pricing
 6. **Movie Ticket Booking** - Seat allocation, concurrent bookings
-7. **Chess Game** - Move validation, game state
-8. **Ride-Sharing App** - Matching, pricing, routing
+7. **Ride-Sharing App** - Matching, pricing, routing
+8. **Social Media Feed** - Timeline generation, ranking algorithms
 
 **Advanced Level**:
 9. **Hotel Management System** - Reservations, room allocation
