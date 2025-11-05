@@ -1,12 +1,12 @@
-# Low Level Design Interview Practice - Complete Guide
+# Low Level Design (LLD) Interview Practice - Complete Guide
 
 ## 📚 Overview
-This repository contains three production-ready implementations of common system design interview problems, complete with comprehensive interview guides and best practices.
+This repository contains **8 production-ready implementations** of common Low Level Design interview problems, complete with comprehensive interview guides and best practices. Each system demonstrates core OOP principles, design patterns, and real-world considerations.
 
 ## 🎯 Systems Included
 
-### 1. [Advanced Cache System](./README_Cache_System.md) 📦
-**File**: `cache_advanced_merged.py`
+### 1. [Advanced Cache System](./01_cache_system_readme.md) 📦
+**File**: `01_cache_system.py`
 
 **What it covers:**
 - **Cache eviction policies**: LRU, LFU, FIFO
@@ -27,8 +27,8 @@ This repository contains three production-ready implementations of common system
 
 ---
 
-### 2. [Rate Limiter System](./README_Rate_Limiter.md) ⏱️
-**File**: `rate_limiter_merged.py`
+### 2. [Rate Limiter System](./02_rate_limiter_readme.md) ⏱️
+**File**: `02_rate_limiter.py`
 
 **What it covers:**
 - **Rate limiting algorithms**: Token Bucket, Sliding Window, Fixed Window
@@ -49,8 +49,8 @@ This repository contains three production-ready implementations of common system
 
 ---
 
-### 3. [Distributed Job Processor](./README_Job_Processor.md) ⚙️
-**File**: `job_processor_merged.py`
+### 3. [Distributed Job Processor](./03_job_processor_readme.md) ⚙️
+**File**: `03_job_processor.py`
 
 **What it covers:**
 - **Job scheduling**: FIFO, Priority-based, Delayed execution
@@ -70,39 +70,238 @@ This repository contains three production-ready implementations of common system
 - Retry policies and dead letter queues
 - Resource management and isolation
 
+---
+
+### 4. [Elevator System](./04_elevator_system_readme.md) 🛗
+**File**: `04_elevator_system.py`
+
+**What it covers:**
+- **SCAN Algorithm**: Efficient elevator scheduling (from disk scheduling)
+- **Dispatch strategies**: Nearest car, optimized, zone-based
+- **Load balancing**: Multi-elevator coordination
+- **Design patterns**: Strategy, Observer
+
+**Interview focus:**
+- Algorithm selection (SCAN vs FCFS vs SSTF)
+- State machine design
+- Concurrent request handling
+- Peak load optimization (rush hours)
+
+**Key algorithms:**
+- SCAN: O(1) movement, O(log n) request insertion
+- Dispatch: O(m) where m = number of elevators
+- Score-based selection considering distance, direction, load
+
+---
+
+### 5. [Vending Machine](./05_vending_machine_readme.md) 🏪
+**File**: `05_vending_machine.py`
+
+**What it covers:**
+- **State Pattern**: IDLE → PAYMENT_RECEIVED → DISPENSING → ERROR
+- **Payment Processing**: Cash, Card, Digital wallet strategies
+- **Change calculation**: Greedy algorithm for canonical coin systems
+- **Error handling**: Mechanical failures, refunds, recovery
+
+**Interview focus:**
+- State machine design and transitions
+- Payment processing strategies
+- Money calculation (avoiding float errors)
+- Inventory management and audit trails
+
+**Key concepts:**
+- Work in cents to avoid floating point errors
+- Strategy pattern for multiple payment types
+- Comprehensive transaction logging
+- Concurrent access with RLock
+
+---
+
+### 6. [Library Management System](./06_library_management_readme.md) 📚
+**File**: `06_library_management.py`
+
+**What it covers:**
+- **Catalog management**: Books, authors, genres, ISBN
+- **Membership system**: Different member types, borrowing limits
+- **Fine calculation**: Overdue fees, late return penalties
+- **Search functionality**: By title, author, ISBN, genre
+
+**Interview focus:**
+- Complex entity relationships
+- Business rule enforcement (borrowing limits, fines)
+- Search and indexing strategies
+- Reservation and waitlist management
+
+**Key concepts:**
+- One-to-many and many-to-many relationships
+- Date handling and due date calculations
+- Notification systems (reminders, overdue alerts)
+- Report generation (popular books, revenue)
+
+---
+
+### 7. [Parking Lot System](./07_parking_lot_readme.md) 🅿️
+**File**: `07_parking_lot.py`
+
+**What it covers:**
+- **Spot allocation**: Different vehicle types (compact, large, motorcycle)
+- **Pricing strategies**: Hourly, daily, flat rate
+- **Payment processing**: Entry/exit ticket validation
+- **Capacity management**: Floor-wise, type-wise availability
+
+**Interview focus:**
+- Space optimization algorithms
+- Real-time availability tracking
+- Pricing calculation with multiple rules
+- Concurrency (multiple vehicles entering/exiting)
+
+**Key algorithms:**
+- Nearest spot allocation: O(n) worst case, O(1) with indexing
+- Pricing calculation: Strategy pattern
+- Capacity tracking: O(1) with counters
+
+---
+
+### 8. [URL Shortener](./08_url_shortener_readme.md) 🔗
+**File**: `08_url_shortener.py`
+
+**What it covers:**
+- **Encoding schemes**: Base62 encoding for short URLs
+- **Collision handling**: Hash-based, counter-based approaches
+- **Analytics**: Click tracking, geographic data, referrers
+- **Expiration**: TTL for temporary short URLs
+
+**Interview focus:**
+- Hash function design
+- Database schema for billion-scale URLs
+- Distributed counter generation
+- Cache strategy for hot URLs
+
+**Key algorithms:**
+- Base62 encoding: 62^7 ≈ 3.5 trillion unique URLs
+- Hash collisions: Linear probing or chaining
+- Analytics: Time-series data storage
+
 ## 🎯 Interview Preparation Strategy
 
 ### Phase 1: Study Individual Systems (Week 1-2)
-1. **Read each README thoroughly** - Understand concepts and trade-offs
-2. **Run the code** - Execute demos to see systems in action
-3. **Trace through algorithms** - Step through LRU, Token Bucket, etc.
-4. **Practice explaining** - Verbally explain each algorithm
+**Goal**: Understand each system deeply
+
+**Beginner-Friendly Order** (start here):
+1. **Cache System** - Fundamental data structures (HashMap + LinkedList)
+2. **Parking Lot** - Basic OOP concepts, entity relationships
+3. **Library Management** - Business logic, date handling
+
+**Intermediate Systems** (algorithmic focus):
+4. **Elevator System** - SCAN algorithm, state machines
+5. **Vending Machine** - State pattern, payment processing
+6. **URL Shortener** - Encoding, hashing, scalability
+
+**Advanced Systems** (distributed concepts):
+7. **Rate Limiter** - Distributed coordination, algorithms
+8. **Job Processor** - Concurrency, reliability patterns
+
+**Study approach for each**:
+1. Read the detailed README thoroughly
+2. Understand core algorithms and data structures
+3. Run the Python implementation
+4. Trace through code execution with examples
+5. Practice explaining design decisions out loud
+
+---
 
 ### Phase 2: Implementation Practice (Week 2-3)
-1. **Code from memory** - Implement core algorithms without reference
-2. **Time yourself** - Practice under interview time pressure  
-3. **Focus on edge cases** - Handle null inputs, capacity limits, etc.
-4. **Add error handling** - Make code production-ready
+**Goal**: Code from scratch under time pressure
 
-### Phase 3: System Design Integration (Week 3-4)
-1. **Connect to larger systems** - How does cache fit into web architecture?
-2. **Discuss scaling** - What changes at 10x, 100x, 1000x scale?
-3. **Consider failure modes** - Network partitions, server crashes, etc.
-4. **Practice system diagrams** - Draw architectures on whiteboard
+**Practice routine** (per system):
+1. **Day 1**: Implement basic version (45 minutes)
+   - Core functionality only
+   - No error handling yet
+   
+2. **Day 2**: Add production features (45 minutes)
+   - Error handling
+   - Edge cases
+   - Thread safety
+   
+3. **Day 3**: Mock interview (60 minutes)
+   - Requirements clarification (5 min)
+   - Design discussion (10 min)
+   - Implementation (30 min)
+   - Q&A and extensions (15 min)
+
+**Key focus areas**:
+- Write clean, readable code
+- Think aloud while coding
+- Handle edge cases
+- Discuss time/space complexity
+
+---
+
+### Phase 3: Pattern Recognition (Week 3)
+**Goal**: Recognize when to apply each design pattern
+
+**Design Patterns across systems**:
+
+| Pattern | Used In | Why |
+|---------|---------|-----|
+| **Strategy** | Cache, Rate Limiter, Elevator, Vending Machine | Multiple algorithms, runtime selection |
+| **State** | Vending Machine, Elevator | Complex state transitions |
+| **Factory** | Cache, Rate Limiter, Job Processor | Object creation abstraction |
+| **Observer** | Library (notifications), Elevator (events) | Event-driven architecture |
+| **Singleton** | Parking Lot (controller), Library (catalog) | Single instance coordination |
+
+**Practice exercise**: Given a new problem, identify which patterns apply
+
+---
+
+### Phase 4: System Design Integration (Week 4)
+**Goal**: Connect LLD to High-Level Design (HLD)
+
+**Scaling exercises**:
+1. **Cache System** → How does it fit into a CDN architecture?
+2. **Rate Limiter** → Distributed rate limiting with Redis
+3. **Job Processor** → Compare with Kafka, RabbitMQ
+4. **Elevator** → IoT integration, real-time updates
+5. **Vending Machine** → Fleet management, cloud backend
+6. **Library** → Multi-branch coordination
+7. **Parking** → City-wide parking availability system
+8. **URL Shortener** → Handle 1 billion URLs, global distribution
+
+**Consider for each**:
+- Database choices (SQL vs NoSQL)
+- Caching layers
+- Load balancing
+- Network partitions
+- Monitoring and alerts
 
 ## 📊 Complexity Comparison
 
-| System | Component | Time | Space | Notes |
-|--------|-----------|------|-------|-------|
-| **Cache** | LRU get/put | O(1) | O(n) | HashMap + DLL |
-| | LFU get/put | O(1) | O(n) | HashMap + Freq tracking |
+| System | Component | Time | Space | Key Data Structure |
+|--------|-----------|------|-------|-------------------|
+| **Cache** | LRU get/put | O(1) | O(n) | HashMap + Doubly Linked List |
+| | LFU get/put | O(1) | O(n) | HashMap + Frequency map |
 | | FIFO get/put | O(1) | O(n) | HashMap + Queue |
-| **Rate Limiter** | Token Bucket | O(1) | O(users) | Per-user state |
-| | Sliding Window | O(log n) | O(users × reqs) | Cleanup overhead |
-| | Fixed Window | O(1) | O(users) | Minimal state |
-| **Job Processor** | Submit job | O(log n) | O(jobs) | Priority queue |
+| **Rate Limiter** | Token Bucket | O(1) | O(users) | HashMap for user state |
+| | Sliding Window | O(log n) | O(users × reqs) | Sorted set for timestamps |
+| | Fixed Window | O(1) | O(users) | HashMap with counter |
+| **Job Processor** | Submit job | O(log n) | O(jobs) | Priority Queue (heap) |
 | | Process job | O(1) | O(workers) | Thread pool |
 | | Retry job | O(1) | O(jobs) | Exponential backoff |
+| **Elevator** | Add request | O(1) | O(floors) | Set for up/down requests |
+| | Move (SCAN) | O(1) | O(floors) | Set operations |
+| | Dispatch | O(m) | O(1) | Iterate m elevators |
+| **Vending Machine** | Select product | O(1) | O(slots) | HashMap for inventory |
+| | Calculate change | O(d) | O(d) | Greedy (d = denominations) |
+| | Process payment | O(1) | O(1) | Payment processor call |
+| **Library** | Search by title | O(log n) | O(n) | TreeMap / B-tree index |
+| | Checkout book | O(1) | O(books) | HashMap lookup |
+| | Calculate fine | O(1) | O(1) | Date arithmetic |
+| **Parking Lot** | Find spot | O(n) worst | O(spots) | Linear search (can optimize) |
+| | Calculate price | O(1) | O(1) | Time difference calc |
+| | Check availability | O(1) | O(floors) | Counter per floor/type |
+| **URL Shortener** | Shorten URL | O(1) avg | O(urls) | HashMap for URL→code |
+| | Resolve URL | O(1) | O(urls) | HashMap for code→URL |
+| | Base62 encode | O(log n) | O(1) | Convert number to base62 |
 
 ## 🎤 Common Interview Questions Across All Systems
 
@@ -160,43 +359,129 @@ This repository contains three production-ready implementations of common system
 
 ### Prerequisites
 ```bash
-python3.8+  # All systems use modern Python features
+python 3.8+  # All systems use modern Python features
+# No external dependencies required - uses only standard library
 ```
 
 ### Execution
 ```bash
 # Run individual systems
-python cache_advanced_merged.py
-python rate_limiter_merged.py
-python job_processor_merged.py
+python 01_cache_system.py
+python 02_rate_limiter.py
+python 03_job_processor.py
+python 04_elevator_system.py
+python 05_vending_machine.py
+python 06_library_management.py
+python 07_parking_lot.py
+python 08_url_shortener.py
 
 # Each will run comprehensive demos showing all features
 ```
 
-### Customization
-Each system is highly configurable:
+### Expected Output
+Each system includes:
+- **Demonstration scenarios** showing core functionality
+- **Edge case handling** (errors, boundary conditions)
+- **Performance metrics** (operations per second, memory usage)
+- **Example transactions** with detailed logs
 
+### Customization Examples
+
+**Cache System**:
 ```python
-# Cache system
+from cache_system import CacheFactory, EvictionPolicy
+
 cache = CacheFactory.create(
     EvictionPolicy.LRU, 
     capacity=1000, 
-    default_ttl=300
+    default_ttl=300  # 5 minutes
 )
+cache.put("key1", "value1")
+value = cache.get("key1")
+```
 
-# Rate limiter
+**Rate Limiter**:
+```python
+from rate_limiter import RateLimiterFactory, RateLimitStrategy
+
 limiter = RateLimiterFactory.create(
     RateLimitStrategy.TOKEN_BUCKET,
     max_requests=100,
     time_window_seconds=60
 )
+allowed = limiter.allow_request("user123")
+```
 
-# Job processor  
+**Job Processor**:
+```python
+from job_processor import JobProcessorFactory, ProcessingStrategy
+
 processor = JobProcessorFactory.create(
     ProcessingStrategy.PRIORITY,
     max_workers=8,
     max_queue_size=10000
 )
+job_id = processor.submit_job(my_function, priority=1)
+```
+
+**Elevator System**:
+```python
+from elevator_system import ElevatorController, DispatchStrategy
+
+controller = ElevatorController(
+    num_elevators=4,
+    num_floors=20,
+    strategy=DispatchStrategy.OPTIMIZED
+)
+controller.request_elevator(floor=5, direction="UP")
+```
+
+**Vending Machine**:
+```python
+from vending_machine import VendingMachine, PaymentType
+
+machine = VendingMachine("VM001")
+machine.add_inventory_slot(slot_id="A1", product=my_product, quantity=10)
+machine.insert_payment(5.00, PaymentType.CASH)
+success, msg = machine.select_product("A1")
+```
+
+**Library Management**:
+```python
+from library_management import Library, Book, Member
+
+library = Library("City Library")
+book = Book(isbn="978-0-123456-78-9", title="Design Patterns", author="Gang of Four")
+library.add_book(book)
+
+member = Member(member_id="M001", name="John Doe", member_type="PREMIUM")
+library.checkout_book(member.member_id, book.isbn)
+```
+
+**Parking Lot**:
+```python
+from parking_lot import ParkingLot, VehicleType, PricingStrategy
+
+parking_lot = ParkingLot(
+    name="Downtown Parking",
+    num_floors=5,
+    spots_per_floor=50,
+    pricing_strategy=PricingStrategy.HOURLY
+)
+ticket = parking_lot.park_vehicle(vehicle, VehicleType.COMPACT)
+fee = parking_lot.unpark_vehicle(ticket.ticket_id)
+```
+
+**URL Shortener**:
+```python
+from url_shortener import URLShortener, EncodingStrategy
+
+shortener = URLShortener(
+    base_url="https://short.url/",
+    strategy=EncodingStrategy.BASE62
+)
+short_url = shortener.shorten("https://example.com/very/long/url")
+original_url = shortener.resolve(short_url)
 ```
 
 ## 📈 Interview Performance Tips
@@ -233,36 +518,195 @@ processor = JobProcessorFactory.create(
 
 ## 🚀 Next Steps After Mastering These Systems
 
-### Advanced Topics
-1. **Consistency Models**: Strong vs Eventual consistency
+### Advanced Topics to Explore
+1. **Consistency Models**: Strong vs Eventual consistency, CAP theorem
 2. **Distributed Consensus**: Raft, Paxos algorithms
-3. **Data Replication**: Master-slave, master-master
+3. **Data Replication**: Master-slave, master-master, multi-master
 4. **Partitioning Strategies**: Hash-based, range-based, directory-based
-5. **Circuit Breakers**: Fault tolerance patterns
+5. **Circuit Breakers**: Fault tolerance and graceful degradation
+6. **Event Sourcing**: Audit trails and state reconstruction
+7. **CQRS**: Command Query Responsibility Segregation
+8. **Saga Pattern**: Distributed transaction management
 
-### Related System Design Problems  
-1. **URL Shortener** (builds on cache concepts)
-2. **Chat System** (real-time messaging, job processing)
-3. **Search Engine** (distributed processing, caching)
-4. **Social Media Feed** (caching, job processing, rate limiting)
-5. **Payment System** (reliability, consistency, rate limiting)
+### Additional LLD Problems to Practice
+**Beginner Level**:
+1. **ATM System** - State machines, transaction handling
+2. **Snake Game** - Game loops, collision detection
+3. **Tic-Tac-Toe** - Board representation, win detection
+4. **Stack Overflow Clone** - Voting, reputation, tags
+
+**Intermediate Level**:
+5. **Online Shopping Cart** - Inventory, checkout, pricing
+6. **Movie Ticket Booking** - Seat allocation, concurrent bookings
+7. **Chess Game** - Move validation, game state
+8. **Ride-Sharing App** - Matching, pricing, routing
+
+**Advanced Level**:
+9. **Hotel Management System** - Reservations, room allocation
+10. **Stock Exchange** - Order matching, price discovery
+11. **Splitwise / Expense Sharing** - Debt simplification algorithms
+12. **Google Calendar** - Event scheduling, conflicts, recurring events
+
+### System Design Integration
+**Connect LLD to HLD**:
+- **Cache System** → CDN architecture, multi-level caching
+- **Rate Limiter** → API gateway, DDoS protection
+- **Job Processor** → Message queues (Kafka, RabbitMQ)
+- **Elevator** → IoT systems, real-time coordination
+- **Vending Machine** → Fleet management, cloud integration
+- **Library** → Multi-branch, federation, inter-library loans
+- **Parking Lot** → City-wide availability, mobile apps
+- **URL Shortener** → Global distribution, DNS, load balancing
 
 ### Study Resources
-- **Books**: "Designing Data-Intensive Applications", "System Design Interview"
-- **Papers**: Google MapReduce, Amazon Dynamo, Facebook TAO
-- **Blogs**: High Scalability, AWS Architecture Blog, Netflix Tech Blog
-- **Practice**: LeetCode System Design, Pramp, InterviewBit
+
+**Books**:
+- *"Designing Data-Intensive Applications"* - Martin Kleppmann ⭐⭐⭐⭐⭐
+- *"Head First Design Patterns"* - Freeman & Freeman
+- *"System Design Interview"* Vol 1 & 2 - Alex Xu
+- *"Clean Code"* - Robert C. Martin
+- *"Refactoring"* - Martin Fowler
+
+**Online Courses**:
+- Grokking the Object Oriented Design Interview (Educative)
+- Grokking the System Design Interview (Educative)
+- System Design Primer (GitHub - donnemartin)
+
+**Papers**:
+- Google MapReduce
+- Amazon Dynamo
+- Facebook TAO
+- Google Bigtable
+- Apache Kafka architecture
+
+**Blogs**:
+- High Scalability (highscalability.com)
+- AWS Architecture Blog
+- Netflix Tech Blog
+- Uber Engineering Blog
+- Martin Fowler's Blog
+
+**Practice Platforms**:
+- LeetCode (System Design section)
+- InterviewBit
+- Pramp (peer mock interviews)
+- SystemsExpert (AlgoExpert)
+
+### Interview Preparation Checklist
+
+**Technical Skills**:
+- [ ] Can implement LRU cache from scratch in 20 minutes
+- [ ] Understand all 8 systems deeply
+- [ ] Can explain trade-offs for each design decision
+- [ ] Know time/space complexity of all operations
+- [ ] Comfortable with 5+ design patterns
+
+**Communication Skills**:
+- [ ] Can articulate design decisions clearly
+- [ ] Ask clarifying questions before coding
+- [ ] Think aloud while solving problems
+- [ ] Handle feedback and pivot gracefully
+- [ ] Explain complex concepts simply
+
+**System Design Knowledge**:
+- [ ] Understand scaling from 1 to 1 million users
+- [ ] Know database choices (SQL vs NoSQL)
+- [ ] Familiar with caching strategies
+- [ ] Understand load balancing and sharding
+- [ ] Know monitoring and alerting best practices
 
 ---
 
 ## 💡 Final Thoughts
 
-These three systems cover the fundamental building blocks of modern distributed applications:
+These **8 systems** cover the fundamental building blocks of software engineering interviews:
 
-- **Caching**: Performance optimization and data access patterns
-- **Rate Limiting**: Resource protection and traffic management  
-- **Job Processing**: Asynchronous execution and workflow orchestration
+**Core Concepts**:
+- **Caching** → Performance optimization, data access patterns
+- **Rate Limiting** → Resource protection, traffic management  
+- **Job Processing** → Asynchronous execution, reliability
+- **Elevator** → Algorithm design, state machines
+- **Vending Machine** → State patterns, payment processing
+- **Library** → Entity relationships, business logic
+- **Parking Lot** → Resource allocation, pricing strategies
+- **URL Shortener** → Encoding, hashing, scalability
 
-Master these systems, and you'll have a solid foundation for tackling any system design interview. The key is not just memorizing implementations, but understanding the trade-offs, scalability challenges, and production considerations that make systems work at scale.
+**What Makes a Strong Candidate**:
+1. **Problem-solving approach** - Systematic, structured thinking
+2. **Trade-off analysis** - No solution is perfect, discuss alternatives
+3. **Communication** - Explain reasoning clearly
+4. **Code quality** - Clean, readable, maintainable
+5. **Production mindset** - Error handling, monitoring, scalability
+
+**Remember**: The goal is to demonstrate your **engineering thinking**, not just write code. Interviewers want to see:
+- How you break down problems
+- How you make design decisions
+- How you handle requirements changes
+- How you think about edge cases
+- How you communicate technical concepts
+
+**Success Formula**:
+```
+Interview Success = Problem Solving (40%) 
+                  + Communication (30%) 
+                  + Code Quality (20%) 
+                  + System Thinking (10%)
+```
 
 **Good luck with your interviews!** 🎯
+
+---
+
+## 📝 Repository Structure
+
+```
+.
+├── README.md                          # This file
+├── 01_cache_system.py                 # LRU, LFU, FIFO cache implementations
+├── 01_cache_system_readme.md          # Detailed cache guide
+├── 02_rate_limiter.py                 # Token bucket, sliding window, fixed window
+├── 02_rate_limiter_readme.md          # Detailed rate limiter guide
+├── 03_job_processor.py                # Job scheduling, worker pools, retry logic
+├── 03_job_processor_readme.md         # Detailed job processor guide
+├── 04_elevator_system.py              # SCAN algorithm, multi-elevator dispatch
+├── 04_elevator_system_readme.md       # Detailed elevator guide
+├── 05_vending_machine.py              # State pattern, payment processing
+├── 05_vending_machine_readme.md       # Detailed vending machine guide
+├── 06_library_management.py           # Book checkout, fines, reservations
+├── 06_library_management_readme.md    # Detailed library guide
+├── 07_parking_lot.py                  # Spot allocation, pricing, capacity
+├── 07_parking_lot_readme.md           # Detailed parking lot guide
+├── 08_url_shortener.py                # Base62 encoding, analytics, expiration
+└── 08_url_shortener_readme.md         # Detailed URL shortener guide
+```
+
+---
+
+## 🤝 Contributing
+
+Found an issue or want to add a new system? Contributions are welcome!
+
+**How to contribute**:
+1. Fork the repository
+2. Create a feature branch
+3. Add your implementation + detailed README
+4. Ensure code follows existing patterns
+5. Submit a pull request
+
+**What we're looking for**:
+- Clean, well-documented code
+- Comprehensive interview guides
+- Real-world scenarios and edge cases
+- Production considerations
+
+---
+
+## 📄 License
+
+This repository is for educational purposes. Feel free to use for interview preparation and learning.
+
+---
+
+**Made with ❤️ for aspiring software engineers**
+
+*Last Updated: November 2025*
