@@ -602,6 +602,7 @@ print(status)  # {'game_state': 'active', 'current_turn': 'white', ...}
 - **Library** → Multi-branch, federation, inter-library loans
 - **Parking Lot** → City-wide availability, mobile apps
 - **URL Shortener** → Global distribution, DNS, load balancing
+- **Chess Game** → Online multiplayer, AI opponents, game replay
 
 ### Study Resources
 
@@ -664,7 +665,7 @@ print(status)  # {'game_state': 'active', 'current_turn': 'white', ...}
 
 ## 💡 Final Thoughts
 
-These **8 systems** cover the fundamental building blocks of software engineering interviews:
+These **9 systems** cover the fundamental building blocks of software engineering interviews:
 
 **Core Concepts**:
 - **Caching** → Performance optimization, data access patterns
@@ -675,6 +676,7 @@ These **8 systems** cover the fundamental building blocks of software engineerin
 - **Library** → Entity relationships, business logic
 - **Parking Lot** → Resource allocation, pricing strategies
 - **URL Shortener** → Encoding, hashing, scalability
+- **Chess Game** → OOP design, complex rule validation, game state management
 
 **What Makes a Strong Candidate**:
 1. **Problem-solving approach** - Systematic, structured thinking
@@ -722,7 +724,9 @@ Interview Success = Problem Solving (40%)
 ├── 07_parking_lot.py                  # Spot allocation, pricing, capacity
 ├── 07_parking_lot_readme.md           # Detailed parking lot guide
 ├── 08_url_shortener.py                # Base62 encoding, analytics, expiration
-└── 08_url_shortener_readme.md         # Detailed URL shortener guide
+├── 08_url_shortener_readme.md         # Detailed URL shortener guide
+├── 09_chess_game.py                   # Chess game with all rules and special moves
+└── 09_chess_game_readme.md            # Detailed chess game guide
 ```
 
 ---
