@@ -1,7 +1,7 @@
 # Low Level Design (LLD) Interview Practice - Complete Guide
 
 ## 📚 Overview
-This repository contains **9 production-ready implementations** of common Low Level Design interview problems, complete with comprehensive interview guides and best practices. Each system demonstrates core OOP principles, design patterns, and real-world considerations.
+This repository contains **11 production-ready implementations** of common Low Level Design interview problems, complete with comprehensive interview guides and best practices. Each system demonstrates core OOP principles, design patterns, and real-world considerations.
 
 ## 🎯 Systems Included
 
@@ -204,6 +204,58 @@ This repository contains **9 production-ready implementations** of common Low Le
 - Piece movement: O(1) to O(n) depending on piece type
 - Game state detection: O(n³) for legal move enumeration
 
+---
+
+### 10. [Notification Service](./10_notification_service_readme.md) 📧
+**File**: `10_notification_service.py`
+
+**What it covers:**
+- **Multi-channel delivery**: Email, SMS, Push, Slack notifications
+- **Deduplication**: Time-window based spam prevention
+- **Rate limiting**: Sliding window algorithm per user/channel
+- **Retry mechanisms**: Exponential backoff for failed deliveries
+- **Priority queue**: Critical notifications delivered first
+
+**Interview focus:**
+- Strategy pattern for notification channels
+- Distributed deduplication with hash-based detection
+- Rate limiting algorithms (sliding window vs token bucket)
+- Reliability patterns (retry, backoff, dead letter queue)
+- Queue management and priority scheduling
+
+**Key algorithms:**
+- Deduplication: O(1) hash lookup with SHA-256
+- Rate limiting: O(log n) sliding window with timestamp cleanup
+- Priority queue: O(log n) insertion, O(1) peek
+- Retry backoff: Exponential delay calculation O(1)
+
+---
+
+### 11. [File System](./11_file_system_readme.md) 📁
+**File**: `11_file_system.py`
+
+**What it covers:**
+- **Hierarchical structure**: Tree-based directory organization
+- **File operations**: Create, delete, rename, move, read, write
+- **Unix-style permissions**: Read, write, execute for owner/group/others
+- **Path resolution**: Absolute and relative path parsing with normalization
+- **Tree traversal**: DFS and BFS algorithms
+- **Search functionality**: Find files by name, size, type, modification time
+
+**Interview focus:**
+- Composite pattern for uniform file/directory interface
+- Tree data structure and navigation algorithms
+- Permission bit manipulation and checking
+- Path parsing and normalization (handling ., .., etc.)
+- Cycle detection for move operations
+- Cache invalidation strategies
+
+**Key algorithms:**
+- Path normalization: O(n) using stack for resolving . and ..
+- Path resolution: O(depth) tree traversal, O(1) with caching
+- Tree traversal: O(n) for both DFS and BFS
+- Move with cycle detection: O(depth) ancestor checking
+
 ## 🎯 Interview Preparation Strategy
 
 ### Phase 1: Study Individual Systems (Week 1-2)
@@ -223,6 +275,8 @@ This repository contains **9 production-ready implementations** of common Low Le
 **Advanced Systems** (distributed concepts):
 8. **Rate Limiter** - Distributed coordination, algorithms
 9. **Job Processor** - Concurrency, reliability patterns
+10. **Notification Service** - Multi-channel delivery, deduplication, retry mechanisms
+11. **File System** - Tree structures, path resolution, permissions, hierarchical organization
 
 **Study approach for each**:
 1. Read the detailed README thoroughly
@@ -328,6 +382,16 @@ This repository contains **9 production-ready implementations** of common Low Le
 | **Chess Game** | Move validation | O(n²) | O(1) | Check detection scan |
 | | Get legal moves | O(n³) | O(n²) | Iterate pieces × moves × validate |
 | | Make move | O(n²) | O(n) | Validate + update board |
+| **Notification** | Send notification | O(1) | O(users) | Priority queue insertion |
+| | Check duplicate | O(1) | O(window) | Hash-based deduplication |
+| | Check rate limit | O(log n) | O(users × reqs) | Sliding window cleanup |
+| | Retry calculation | O(1) | O(1) | Exponential backoff formula |
+| **File System** | Path resolution | O(d) | O(paths) | Tree traversal (d = depth) |
+| | Path normalization | O(n) | O(d) | Stack for . and .. (n = path length) |
+| | Create/delete file | O(d) | O(1) | Navigate to parent |
+| | Tree traversal | O(n) | O(h) or O(w) | DFS (h = height) or BFS (w = width) |
+| | Search by name | O(n) | O(h) | DFS with filtering |
+| | Move (cycle check) | O(d) | O(1) | Traverse up to check ancestor |
 
 ## 🎤 Common Interview Questions Across All Systems
 
@@ -401,6 +465,8 @@ python 06_library_management.py
 python 07_parking_lot.py
 python 08_url_shortener.py
 python 09_chess_game.py
+python 10_notification_service.py
+python 11_file_system.py
 
 # Each will run comprehensive demos showing all features
 ```
@@ -527,6 +593,61 @@ print(valid_moves)  # ['e3', 'e4']
 # Check game status
 status = game.get_game_status()
 print(status)  # {'game_state': 'active', 'current_turn': 'white', ...}
+```
+
+**Notification Service**:
+```python
+from notification_service import NotificationService, NotificationChannel, NotificationPriority
+
+service = NotificationService()
+service.start_worker()
+
+# Send email notification
+notification = Notification(
+    notification_id="notif_001",
+    user_id="user_123",
+    channel=NotificationChannel.EMAIL,
+    title="Welcome!",
+    message="Thanks for signing up",
+    priority=NotificationPriority.HIGH
+)
+
+success, message = service.send_notification(notification)
+print(message)  # "Notification queued successfully"
+
+# Check delivery status
+status = service.get_delivery_status("notif_001")
+print(status)  # NotificationResult(status=SENT, ...)
+```
+
+**File System**:
+```python
+from file_system import FileSystem, Permission
+
+fs = FileSystem()
+user = "alice"
+
+# Create directory structure
+fs.create_directory("/home", "root")
+fs.create_directory("/home/alice", user)
+
+# Create and write to file
+fs.create_file("/home/alice/readme.txt", user, "Welcome!")
+success, content = fs.read_file("/home/alice/readme.txt", user)
+print(content)  # "Welcome!"
+
+# List directory
+success, children = fs.list_directory("/home/alice", user)
+print(children)  # ['readme.txt']
+
+# Traverse directory tree (DFS)
+paths = fs.traverse_dfs("/home", user)
+for path in paths:
+    print(path)  # /home, /home/alice, /home/alice/readme.txt
+
+# Search for files
+results = fs.search_by_name("readme", "/", user)
+print(results)  # ['/home/alice/readme.txt']
 ```
 
 ## 📈 Interview Performance Tips
@@ -665,7 +786,7 @@ print(status)  # {'game_state': 'active', 'current_turn': 'white', ...}
 
 ## 💡 Final Thoughts
 
-These **9 systems** cover the fundamental building blocks of software engineering interviews:
+These **11 systems** cover the fundamental building blocks of software engineering interviews:
 
 **Core Concepts**:
 - **Caching** → Performance optimization, data access patterns
@@ -677,6 +798,8 @@ These **9 systems** cover the fundamental building blocks of software engineerin
 - **Parking Lot** → Resource allocation, pricing strategies
 - **URL Shortener** → Encoding, hashing, scalability
 - **Chess Game** → OOP design, complex rule validation, game state management
+- **Notification Service** → Multi-channel delivery, deduplication, reliability patterns
+- **File System** → Tree structures, path resolution, permissions, hierarchical organization
 
 **What Makes a Strong Candidate**:
 1. **Problem-solving approach** - Systematic, structured thinking
@@ -726,7 +849,11 @@ Interview Success = Problem Solving (40%)
 ├── 08_url_shortener.py                # Base62 encoding, analytics, expiration
 ├── 08_url_shortener_readme.md         # Detailed URL shortener guide
 ├── 09_chess_game.py                   # Chess game with all rules and special moves
-└── 09_chess_game_readme.md            # Detailed chess game guide
+├── 09_chess_game_readme.md            # Detailed chess game guide
+├── 10_notification_service.py         # Multi-channel notifications, deduplication, retry
+├── 10_notification_service_readme.md  # Detailed notification service guide
+├── 11_file_system.py                  # Hierarchical file system with permissions and traversal
+└── 11_file_system_readme.md           # Detailed file system guide
 ```
 
 ---

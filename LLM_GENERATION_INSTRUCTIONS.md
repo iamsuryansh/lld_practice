@@ -887,6 +887,6 @@ class InventoryManager:
 
 ---
 
-PROBLEM STATEMENT - Design a Chess Game
-Focus: Board representation, piece movements/validation, turn-based logic, and special rules (castling, en passant).
+PROBLEM STATEMENT - Design a File System (e.g., Simple Directory Structure)
+Focus: Hierarchical directories, file operations (create/delete/rename), permissions, and traversal efficiency.
 ---
