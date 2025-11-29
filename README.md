@@ -1,7 +1,7 @@
 # Low Level Design (LLD) Interview Practice - Complete Guide
 
 ## 📚 Overview
-This repository contains **11 production-ready implementations** of common Low Level Design interview problems, complete with comprehensive interview guides and best practices. Each system demonstrates core OOP principles, design patterns, and real-world considerations.
+This repository contains **16 production-ready implementations** of common Low Level Design interview problems, complete with comprehensive interview guides and best practices. Each system demonstrates core OOP principles, design patterns, and real-world considerations.
 
 ## 🎯 Systems Included
 
@@ -256,6 +256,148 @@ This repository contains **11 production-ready implementations** of common Low L
 - Tree traversal: O(n) for both DFS and BFS
 - Move with cycle detection: O(depth) ancestor checking
 
+---
+
+### 12. [Snake and Ladder Game](./12_snake_ladder_game_readme.md) 🎲
+**File**: `12_snake_ladder_game.py`
+
+**What it covers:**
+- **Classic board game**: 100-cell board with snakes and ladders
+- **Multiplayer support**: Turn-based gameplay with 2+ players
+- **Strategy pattern**: Flexible dice rolling (standard, weighted, controlled)
+- **Game state management**: Move history, statistics tracking
+- **Thread safety**: Concurrent multiplayer access with RLock
+- **Testing support**: Controlled dice for deterministic unit tests
+
+**Interview focus:**
+- Strategy pattern for algorithm flexibility (dice rolling)
+- Dictionary-based sparse data structure (O(1) lookups)
+- Turn rotation and player state management
+- Boundary handling (exact roll to win)
+- Statistics tracking and audit trails
+- Thread safety in multiplayer scenarios
+
+**Key algorithms:**
+- Position lookup: O(1) using HashMap for snakes/ladders
+- Dice roll: O(1) for all strategies
+- Turn rotation: O(1) with modulo arithmetic
+- Move validation: O(1) boundary checks
+- Statistics: O(P log P) for player standings (P = players)
+
+---
+
+### 13. [Distributed Cache System](./13_distributed_cache_readme.md) 🌐
+**File**: `13_distributed_cache.py`
+
+**What it covers:**
+- **Consistent hashing**: Data partitioning with virtual nodes for load balancing
+- **Replication**: Configurable replication factor (default: 3) for fault tolerance
+- **Consistency levels**: ONE, QUORUM, ALL for CAP theorem trade-offs
+- **Read repair**: Automatic stale replica detection and correction
+- **Hot key detection**: Identify and mitigate skewed workloads
+- **Node failure handling**: Automatic failover with minimal data movement
+- **TTL expiration**: Per-entry time-to-live with lazy eviction
+
+**Interview focus:**
+- Why consistent hashing over modulo (minimal remapping: K/N vs all keys)
+- Quorum math: W + R > N for consistency guarantees
+- Read repair vs anti-entropy (lazy vs eager consistency)
+- Hot key mitigation strategies (local caching, key splitting, increased replication)
+- CAP theorem trade-offs (CP vs AP modes)
+- Virtual nodes for heterogeneous cluster load balancing
+
+**Key algorithms:**
+- Consistent hashing: O(log N) node lookup with binary search
+- Add/remove node: O(V log N) where V = virtual nodes per physical node
+- Quorum read: O(R) RPCs where R = read quorum
+- Quorum write: O(W) RPCs where W = write quorum
+- Read repair: O(R) background updates to stale replicas
+
+---
+
+### 14. Distributed Key-Value Store 🗄️
+**File**: `14_distributed_kv_store.py`
+
+**What it covers:**
+- **Vector clocks**: Causality tracking for conflict detection
+- **Merkle trees**: Efficient anti-entropy synchronization (O(log N))
+- **Write-ahead log (WAL)**: Durability and crash recovery
+- **Multi-version concurrency control (MVCC)**: Keep multiple versions per key
+- **Quorum consensus**: Tunable consistency (R + W > N)
+- **Consistent hashing**: Data partitioning across nodes
+
+**Interview focus:**
+- Vector clocks vs timestamps (causality vs wall-clock time)
+- Merkle tree benefits (O(log N) sync vs O(N) full comparison)
+- WAL replay algorithm for crash recovery
+- Conflict resolution with concurrent writes
+- CAP theorem trade-offs (tunable R, W, N)
+- Comparison with Dynamo, Cassandra, Riak
+
+**Key algorithms:**
+- Vector clock operations: O(N) where N = number of nodes
+- Merkle tree build: O(M log M) where M = keys
+- Merkle tree compare: O(log M) to find divergence
+- WAL replay: O(entries) with sequential reads
+- Quorum get/put: O(R) or O(W) RPCs
+
+---
+
+### 15. Autocomplete System 🔍
+**File**: `15_autocomplete_system.py`
+
+**What it covers:**
+- **Trie data structure**: Efficient prefix search
+- **Frequency-based ranking**: Popular suggestions first
+- **LRU caching**: Cache popular prefixes for <1ms latency
+- **Fuzzy matching**: Levenshtein distance for typo correction
+- **Top-K heap**: Get K most relevant suggestions efficiently
+
+**Interview focus:**
+- Trie vs other data structures (HashMap, Array)
+- Space-time trade-offs (Trie size vs search speed)
+- Caching strategy for real-time performance
+- Fuzzy matching algorithms and complexity
+- Personalization (user history, location)
+- Scalability (billions of queries per day)
+
+**Key algorithms:**
+- Trie insert/search: O(M) where M = word length
+- Get suggestions: O(M + N) where N = matching words
+- Top-K with heap: O(N log K) for K results
+- Levenshtein distance: O(M × N) dynamic programming
+- LRU cache: O(1) get/put operations
+
+---
+
+### 16. File Storage System 📁
+**File**: `16_file_storage_system.py`
+
+**What it covers:**
+- **Content-addressable storage**: SHA-256 chunk IDs for deduplication
+- **File chunking**: Fixed or variable-size with rolling hash
+- **Delta sync**: Transfer only changed chunks (rsync algorithm)
+- **Version control**: Immutable snapshots with parent pointers
+- **Conflict resolution**: Last-write-wins and 3-way merge
+- **Reference counting**: Automatic chunk garbage collection
+
+**Interview focus:**
+- Chunking strategies (fixed vs variable, Rabin fingerprinting)
+- Deduplication benefits (40-60% space savings)
+- Delta sync algorithm (rsync-style, 90% bandwidth savings)
+- Version control design (Git-like snapshots)
+- Conflict detection and resolution strategies
+- Production deployment (S3, CDN, encryption)
+
+**Key algorithms:**
+- SHA-256 hashing: O(N) where N = file size
+- Fixed-size chunking: O(N / chunk_size)
+- Delta sync: O(N) to compute, O(changed) to transfer
+- Three-way merge: O(chunks) comparison
+- Reference counting: O(1) increment/decrement
+
+---
+
 ## 🎯 Interview Preparation Strategy
 
 ### Phase 1: Study Individual Systems (Week 1-2)
@@ -265,18 +407,23 @@ This repository contains **11 production-ready implementations** of common Low L
 1. **Cache System** - Fundamental data structures (HashMap + LinkedList)
 2. **Parking Lot** - Basic OOP concepts, entity relationships
 3. **Library Management** - Business logic, date handling
+4. **Snake and Ladder Game** - Strategy pattern, turn management, statistics
 
 **Intermediate Systems** (algorithmic focus):
-4. **Elevator System** - SCAN algorithm, state machines
-5. **Vending Machine** - State pattern, payment processing
-6. **URL Shortener** - Encoding, hashing, scalability
-7. **Chess Game** - OOP design, move validation, complex rules
+5. **Elevator System** - SCAN algorithm, state machines
+6. **Vending Machine** - State pattern, payment processing
+7. **URL Shortener** - Encoding, hashing, scalability
+8. **Chess Game** - OOP design, move validation, complex rules
 
 **Advanced Systems** (distributed concepts):
-8. **Rate Limiter** - Distributed coordination, algorithms
-9. **Job Processor** - Concurrency, reliability patterns
-10. **Notification Service** - Multi-channel delivery, deduplication, retry mechanisms
-11. **File System** - Tree structures, path resolution, permissions, hierarchical organization
+9. **Rate Limiter** - Distributed coordination, algorithms
+10. **Job Processor** - Concurrency, reliability patterns
+11. **Notification Service** - Multi-channel delivery, deduplication, retry mechanisms
+12. **File System** - Tree structures, path resolution, permissions, hierarchical organization
+13. **Distributed Cache** - Consistent hashing, quorum consensus, read repair
+14. **Distributed KV Store** - Vector clocks, Merkle trees, WAL, MVCC
+15. **Autocomplete System** - Trie data structures, caching, fuzzy matching
+16. **File Storage System** - Chunking, deduplication, delta sync, versioning
 
 **Study approach for each**:
 1. Read the detailed README thoroughly
@@ -445,6 +592,40 @@ This repository contains **11 production-ready implementations** of common Low L
 - **Resource Management**: Job timeouts, memory limits, circuit breakers
 - **Monitoring**: Track queue depth, processing rates, error rates
 
+### Snake and Ladder Game
+- **Strategy Pattern**: Inject different dice strategies for testing and game modes
+- **Sparse Data**: Use HashMap for O(1) snake/ladder lookups
+- **Boundary Logic**: Exact roll required to win (overshooting keeps you at current position)
+- **Thread Safety**: RLock for concurrent multiplayer access
+
+### Distributed Cache
+- **Consistent Hashing**: Minimal remapping on node changes (K/N keys vs all keys with modulo)
+- **Quorum Math**: W + R > N ensures read-after-write consistency
+- **Read Repair**: Fix stale replicas during reads (no extra RPCs)
+- **Hot Keys**: Detect via access frequency, mitigate with local caching or key splitting
+- **Virtual Nodes**: Better load distribution (150 virtual per physical node)
+
+### Distributed KV Store
+- **Vector Clocks**: Track causality, detect concurrent updates (happens-before vs concurrent)
+- **Merkle Trees**: O(log N) anti-entropy sync vs O(N) full comparison
+- **Write-Ahead Log**: Durability guarantee, crash recovery with replay
+- **Quorum Consensus**: R + W > N ensures consistency (tunable CAP trade-offs)
+- **Conflict Resolution**: Reconcile concurrent writes with version vectors
+
+### Autocomplete System
+- **Trie Data Structure**: O(M) insert/search where M = word length
+- **Top-K with Heap**: O(N log K) for K suggestions from N words
+- **LRU Cache**: Cache popular prefixes for <1ms latency
+- **Fuzzy Matching**: Levenshtein distance with O(M*N) DP for typo correction
+- **Frequency Ranking**: Update on selection for personalization
+
+### File Storage System
+- **Content-Addressable**: SHA-256 chunk IDs for automatic deduplication
+- **Delta Sync**: Transfer only changed chunks (rsync algorithm), 90% bandwidth savings
+- **Chunking**: Fixed or variable-size (Rabin fingerprinting for better dedup)
+- **Version Control**: Immutable snapshots with parent pointers
+- **Conflict Resolution**: Last-write-wins or 3-way merge for concurrent edits
+
 ## 🔧 Running the Code
 
 ### Prerequisites
@@ -467,6 +648,11 @@ python 08_url_shortener.py
 python 09_chess_game.py
 python 10_notification_service.py
 python 11_file_system.py
+python 12_snake_ladder_game.py
+python 13_distributed_cache.py
+python 14_distributed_kv_store.py
+python 15_autocomplete_system.py
+python 16_file_storage_system.py
 
 # Each will run comprehensive demos showing all features
 ```
@@ -648,6 +834,140 @@ for path in paths:
 # Search for files
 results = fs.search_by_name("readme", "/", user)
 print(results)  # ['/home/alice/readme.txt']
+```
+
+**Snake and Ladder Game**:
+```python
+from snake_ladder_game import SnakeAndLadderGame, ControlledDice, WeightedDice
+
+# Create game with classic board
+game = SnakeAndLadderGame(board_size=100)
+game.setup_classic_board()  # 10 snakes, 10 ladders
+
+# Add players
+game.add_player("p1", "Alice")
+game.add_player("p2", "Bob")
+game.start_game()
+
+# Play game
+while not game.get_winner():
+    move = game.roll_dice_and_move()
+    print(f"{move.player_id} rolled {move.dice_roll}: {move.from_position}→{move.to_position}")
+
+# Get final standings
+standings = game.get_player_standings()
+for player in standings:
+    print(f"{player.name}: Position {player.position}, Moves: {player.moves_count}")
+
+# Testing with controlled dice
+test_game = SnakeAndLadderGame(board_size=20)
+test_game.set_dice_strategy(ControlledDice([6, 6, 8]))  # Predetermined rolls
+test_game.add_player("test", "Tester")
+test_game.start_game()
+test_game.roll_dice_and_move()  # Always rolls 6
+```
+
+**Distributed Cache**:
+```python
+from distributed_cache import DistributedCache, CacheNode, ConsistencyLevel
+
+# Create cache cluster
+cache = DistributedCache(
+    cluster_name="prod-cache",
+    replication_factor=3,
+    default_consistency=ConsistencyLevel.QUORUM
+)
+
+# Add nodes
+for i in range(1, 6):
+    node = CacheNode(f"node{i}", f"10.0.0.{i}", 8000 + i)
+    cache.add_node(node)
+
+# Write data with replication
+result = cache.put("user:1001", {"name": "Alice", "age": 30}, ttl_seconds=300)
+print(f"Write: {result.message}, Replicas: {result.replicas_written}/3")
+
+# Read data with quorum
+result = cache.get("user:1001", consistency=ConsistencyLevel.QUORUM)
+print(f"Read: {result.value}, Version: {result.version}")
+
+# Get cluster statistics
+stats = cache.get_cluster_stats()
+print(f"Hit rate: {stats['node_stats']['node1']['hit_rate']:.2%}")
+print(f"Total reads: {stats['global_stats']['total_reads']}")
+print(f"Read repairs: {stats['global_stats']['read_repairs']}")
+```
+
+**Distributed KV Store**:
+```python
+from distributed_kv_store import DistributedKVStore
+
+# Create cluster
+store = DistributedKVStore(cluster_name="kv-cluster", replication_factor=3)
+for i in range(5):
+    store.add_node(f"node{i}", f"10.0.0.{i}", 9000 + i)
+
+# Write with quorum (W=2)
+store.put("user:1001", {"name": "Alice"}, write_quorum=2)
+
+# Read with quorum (R=2, R+W>N ensures consistency)
+result = store.get("user:1001", read_quorum=2)
+print(f"Value: {result.value}, Vector clock: {result.vector_clock}")
+
+# Anti-entropy synchronization
+divergent = store.anti_entropy_sync("node0", "node1")
+print(f"Synchronized {len(divergent)} divergent keys")
+```
+
+**Autocomplete System**:
+```python
+from autocomplete_system import AutocompleteSystem
+
+# Create system with LRU cache
+system = AutocompleteSystem(cache_capacity=1000)
+
+# Build dictionary with frequencies
+system.add_words([
+    ("python", 10000),
+    ("pytorch", 8000),
+    ("pandas", 6000),
+    ("javascript", 5000)
+])
+
+# Get suggestions (ranked by frequency)
+suggestions = system.get_suggestions("py", max_results=5)
+# Returns: [("python", 10000), ("pytorch", 8000), ...]
+
+# Fuzzy matching for typos
+fuzzy = system.get_fuzzy_suggestions("pytohn", max_distance=2)
+# Returns: [("python", 10000)] with edit distance 2
+
+# Update frequency when user selects
+system.update_frequency("pytorch", increment=100)
+```
+
+**File Storage System**:
+```python
+from file_storage_system import FileStorageSystem
+
+# Create storage
+storage = FileStorageSystem()
+
+# Upload file (automatically chunked and deduplicated)
+version1 = storage.upload_file("/docs/report.pdf", file_data, owner="user1")
+
+# Update file (delta sync - only changed chunks transferred)
+version2 = storage.upload_file("/docs/report.pdf", updated_data, owner="user1", parent_version=version1)
+
+# Download specific version (time-travel)
+old_data = storage.download_file(file_id, version_id=version1)
+
+# Sync with conflict resolution
+version, had_conflict = storage.sync_file("/docs/report.pdf", local_data, "user1", local_version)
+
+# Get deduplication stats
+stats = storage.get_storage_stats()
+print(f"Space saved: {stats['chunk_stats']['space_savings']:.1%}")
 ```
 
 ## 📈 Interview Performance Tips
