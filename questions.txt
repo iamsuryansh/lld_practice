@@ -1,0 +1,20 @@
+Design an In-Memory Key-Value Store with Expiration
+Focus: Use HashMap for storage, priority queue or timers for expiration; ensure thread-safety with locks; discuss eviction policies and memory management for high-throughput scenarios.
+Design a Rate Limiter
+Focus: Implement token bucket or sliding window algorithms; handle concurrent requests (e.g., using Atomic variables); extend to distributed setups with Redis; provide working code snippets.
+Design a Message Queuing System
+Focus: Producer-consumer pattern with BlockingQueue; incorporate acknowledgments, retries, and persistence; emphasize multithreading, dead-letter queues, and Observer pattern for notifications.
+Design a Task Scheduler
+Focus: PriorityQueue for tasks, ScheduledExecutorService for timing; support recurring tasks and dependencies; discuss concurrency issues like race conditions and cancellation logic.
+Design an LRU Cache
+Focus: HashMap + Doubly Linked List for O(1) operations; make it thread-safe (e.g., ConcurrentHashMap); cover capacity limits, eviction, and variations like LFU.
+Design a Snake and Ladder Game
+Focus: OOP classes (Board, Player, Dice); use Strategy pattern for dice rolls and Singleton for game instance; add extensibility for power-ups and multi-player concurrency.
+Design a Distributed Cache
+Focus: Node communication via gossip protocol; consistency models (eventual vs. strong); eviction strategies and invalidation; integrate with in-memory stores like Memcached.
+Design a Distributed Key-Value Store
+Focus: Sharding for partitioning, replication for fault tolerance; handle conflicts with vector clocks; discuss CAP theorem trade-offs in a basic distributed setup.
+Design an Autocomplete System
+Focus: Trie data structure with frequency counts; caching top results; handle large datasets with compression and concurrent updates for real-time suggestions.
+Design a File Storage System (like Dropbox)
+Focus: Chunk files for uploads, metadata database; sync logic with versioning and conflict resolution; incorporate security (encryption) and basic sharing mechanisms.
