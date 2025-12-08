@@ -1,4 +1,4 @@
-"""
+'''
 Advanced Cache System - Single File Implementation with TTL and Thread Safety
 For coding interviews and production-ready reference
 
@@ -10,7 +10,7 @@ Features:
 
 Author: Interview Prep
 Date: 2024
-"""
+'''
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
